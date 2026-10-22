@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<title>表格导出插件 · 本地测试样例页</title>
+<style>
+  body { font: 14px/1.6 "Microsoft YaHei", sans-serif; margin: 24px; color: #1f2933; }
+  h2 { margin-top: 32px; border-left: 4px solid #2e7d32; padding-left: 8px; }
+  table { border-collapse: collapse; margin: 8px 0; }
+  th, td { border: 1px solid #ccc; padding: 4px 10px; text-align: left; }
+  th { background: #eef7ee; }
+  .hidden-col { display: none; }
+  iframe { width: 100%; height: 160px; border: 1px dashed #999; }
+</style>
+</head>
+<body>
+<h1>表格导出插件 · 本地测试样例页</h1>
+<p>用扩展弹窗对本页各表格逐一测试：检测、列选择、隐藏列、合并单元格、类型推断、分页提示。</p>
+
+<h2>样例 1：原生静态表（含隐藏列与数值/前导零/长数字混排）</h2>
+<table id="native-basic">
+  <caption>员工清单</caption>
+  <thead>
+    <tr><th>工号</th><th>姓名</th><th class="hidden-col">内部备注</th><th>月薪</th><th>证件号</th><th>入职日期</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>0012</td><td>张三</td><td class="hidden-col">A</td><td>12,500.50</td><td>110101199001011234</td><td>2021-03-05</td></tr>
+    <tr><td>0107</td><td>李四</td><td class="hidden-col">B</td><td>¥9,800</td><td>110101199202022345</td><td>2020-11-20</td></tr>
+    <tr><td>1024</td><td>王五</td><td class="hidden-col">C</td><td>15600</td><td>110101198803033456</td><td>2019-06-01</td></tr>
+  </tbody>
+</table>
+
+<h2>样例 2：合并单元格表（表头横向合并 + 数据纵向合并）</h2>
+<table id="merged">
+  <thead>
+    <tr><th colspan="2">区域</th><th rowspan="2">销售额</th><th rowspan="2">同比</th></tr>
+    <tr><th>省份</th><th>城市</th></tr>
+  </thead>
+  <tbody>
+    <tr><td rowspan="2">华东</td><td>上海</td><td>1,250,000</td><td>+12%</td></tr>
+    <tr><td>杭州</td><td>830,000</td><td>+8%</td></tr>
+    <tr><td>华北</td><td>北京</td><td>1,010,000</td><td>-3%</td></tr>
+  </tbody>
+</table>
+
+<h2>样例 2b：无 thead 的表（首行启发式判定表头）</h2>
+<table id="no-thead">
+  <tbody>
+    <tr><td>商品</td><td>单价</td><td>库存</td></tr>
+    <tr><td>笔记本</td><td>6.5</td><td>120</td></tr>
+    <tr><td>签字笔</td><td>3.0</td><td>800</td></tr>
+  </tbody>
+</table>
+
+<h2>样例 3：语义网格（role=grid，携带 aria-rowcount 截断标注）</h2>
+<div role="grid" aria-rowcount="1200" aria-label="订单列表" style="width:520px">
+  <div role="row">
+    <span role="columnheader" style="display:inline-block;width:120px">订单号</span>
+    <span role="columnheader" style="display:inline-block;width:160px">客户</span>
+    <span role="columnheader" style="display:inline-block;width:100px">金额</span>
+  </div>
+  <div role="row">
+    <span role="gridcell" style="display:inline-block;width:120px">SO-2026-0001</span>
+    <span role="gridcell" style="display:inline-block;width:160px">某商贸有限公司</span>
+    <span role="gridcell" style="display:inline-block;width:100px">12,500</span>
+  </div>
+  <div role="row">
+    <span role="gridcell" style="display:inline-block;width:120px">SO-2026-0002</span>
+    <span role="gridcell" style="display:inline-block;width:160px">某制造股份公司</span>
+    <span role="gridcell" style="display:inline-block;width:100px">98,000</span>
+  </div>
+</div>
+<p>说明：该网格 aria-rowcount=1200 但仅渲染 2 行，弹窗应提示“已渲染 2 行 / 共 1200 行”。</p>
+
+<h2>样例 4：带分页容器的表格</h2>
+<table id="paged">
+  <thead><tr><th>页面</th><th>访问量</th></tr></thead>
+  <tbody>
+    <tr><td>/home</td><td>10200</td></tr>
+    <tr><td>/list</td><td>8600</td></tr>
+  </tbody>
+</table>
+<div class="pagination ant-pagination"><span>第 1 / 60 页</span><a href="javascript:void(0)">下一页</a></div>
+
+<h2>样例 5：可编辑单元格</h2>
+<table id="editable">
+  <thead><tr><th>项目</th><th>进度</th></tr></thead>
+  <tbody>
+    <tr><td>需求确认</td><td><input type="text" value="100%" readonly /></td></tr>
+    <tr><td>开发</td><td><input type="text" value="45%" readonly /></td></tr>
+  </tbody>
+</table>
+
+<h2>样例 6：iframe 内嵌表格（检测 allFrames）</h2>
+<iframe srcdoc='<meta charset="utf-8"><table border="1"><tr><th>子框架列A</th><th>子框架列B</th></tr><tr><td>a1</td><td>b1</td></tr></table>'></iframe>
+
+<h2>样例 7：空表格</h2>
+<table id="empty"><thead><tr><th>列一</th><th>列二</th></tr></thead><tbody></tbody></table>
+
+<script>
+  // 模拟分页表格的"当前页"（本页不做真实翻页，仅供提示文案验证）
+</script>
+</body>
+</html>

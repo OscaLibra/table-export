@@ -1,0 +1,10 @@
+# 发布产物（由 tools/pack.py 生成，随 Release 附件分发）
+dist/
+
+# 调试产物
+*.xlsx
+*.log
+
+# 系统文件
+Thumbs.db
+.DS_Store

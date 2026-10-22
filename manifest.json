@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "页面表格导出 Excel",
+  "version": "0.1.2",
+  "description": "识别当前页面已渲染的表格，按所选列导出为 Excel。只读页面数据，不模拟任何用户操作。",
+  "minimum_chrome_version": "120",
+  "permissions": ["activeTab", "scripting"],
+  "action": {
+    "default_popup": "src/popup/popup.html",
+    "default_title": "表格导出 Excel"
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}

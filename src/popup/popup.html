@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <title>表格导出 Excel</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <header class="hd">
+    <span class="hd-title">表格导出 Excel</span>
+    <span id="page-title" class="hd-page" title=""></span>
+  </header>
+
+  <!-- 加载中 -->
+  <section id="state-loading" class="state">
+    <div class="spinner"></div>
+    <p>正在检测页面表格…</p>
+  </section>
+
+  <!-- 错误 / 空态 -->
+  <section id="state-error" class="state hidden">
+    <p id="error-msg" class="err-text"></p>
+  </section>
+
+  <!-- 主界面 -->
+  <section id="state-main" class="hidden">
+    <div class="row">
+      <label class="lbl" for="table-select">表格</label>
+      <select id="table-select"></select>
+    </div>
+
+    <div id="table-meta" class="meta"></div>
+
+    <div class="row between">
+      <span class="lbl">选择导出列</span>
+      <span class="ops">
+        <a href="#" id="op-all">全选</a>
+        <a href="#" id="op-none">清空</a>
+      </span>
+    </div>
+    <div id="column-list" class="cols"></div>
+
+    <div id="preview-box" class="preview hidden">
+      <div class="preview-hd">预览（前 10 行）</div>
+      <div class="preview-scroll" id="preview-body"></div>
+    </div>
+
+    <div class="actions">
+      <button id="btn-preview" class="btn ghost" type="button">预 览</button>
+      <button id="btn-export" class="btn primary" type="button">导出 Excel</button>
+    </div>
+
+    <div id="progress-wrap" class="progress hidden">
+      <div class="progress-bar"><div id="progress-fill"></div></div>
+      <span id="progress-text"></span>
+    </div>
+
+    <div id="status" class="status"></div>
+    <div id="warnings" class="warnings"></div>
+  </section>
+
+  <script src="../lib/exceljs.min.js"></script>
+  <script src="exporter.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
